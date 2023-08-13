@@ -9,13 +9,18 @@ function HeaderMenu() {
       <nav className="headerMenu-container">
         <div className="headerMenu-rightSide">
           <div className="category-wrapper">
-            <span
+            <button
               id="header_drop-down"
               onMouseEnter={() => setDropDownCategoryIsOpen(true)}
             >
-              دسته بندی
-            </span>
-            {dropDownCategoryIsOpen && <CategoryDropDown/>}
+              <span>دسته بندی</span>{" "}
+              {dropDownCategoryIsOpen ? (
+                <i className="bi bi-caret-down-fill"></i>
+              ) : (
+                <i className="bi bi-caret-down"></i>
+              )}
+            </button>
+            {dropDownCategoryIsOpen && <CategoryDropDown />}
           </div>
           <div className="admin">
             <NavLink to="/admin">مدیریت</NavLink>

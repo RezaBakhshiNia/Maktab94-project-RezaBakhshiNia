@@ -112,12 +112,21 @@
 #header_drop-down {
   cursor: pointer;
   color: rgb(44, 44, 41);
-  transition: 250ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: inherit;
+  position: relative;
+  i {
+    position: absolute;
+    left: -1.2rem;
+    top: 0.3rem;
+  }
 }
 
 #header_drop-down:hover {
   color: seagreen;
-  font-weight: bolder;
 }
 
 .header_category-dropDown-container {
@@ -164,6 +173,24 @@
     }
     a:hover {
       color: seagreen;
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .header_search-bar {
+    display: none;
+  }
+  .header_category-dropDown-container {
+    flex-direction: column;
+    padding-bottom: 1rem;
+  }
+  .headerMenu-rightSide {
+    font-size: 0.8rem;
+  }
+  .user-pages {
+    span {
+      font-size: 0.9rem;
     }
   }
 }
