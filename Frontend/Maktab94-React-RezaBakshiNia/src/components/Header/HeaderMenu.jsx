@@ -1,12 +1,21 @@
 import { NavLink } from "react-router-dom";
+import CategoryDropDown from "./CategoryDropDown";
+import { useState } from "react";
 
 function HeaderMenu() {
+  const [dropDownCategoryIsOpen, setDropDownCategoryIsOpen] = useState(false);
   return (
-    <div id="header-menu">
-      <div className="headerMenu-container">
+    <div id="header-menu" onMouseLeave={() => setDropDownCategoryIsOpen(false)}>
+      <nav className="headerMenu-container">
         <div className="headerMenu-rightSide">
           <div className="category-wrapper">
-            <span>دسته بندی</span>
+            <span
+              id="header_drop-down"
+              onMouseEnter={() => setDropDownCategoryIsOpen(true)}
+            >
+              دسته بندی
+            </span>
+            {dropDownCategoryIsOpen && <CategoryDropDown/>}
           </div>
           <div className="admin">
             <NavLink to="/admin">مدیریت</NavLink>
@@ -21,8 +30,7 @@ function HeaderMenu() {
             <NavLink to="/">صفحه اصلی</NavLink>
           </div>
         </div>
-        <div className="headerMenu-leftSide"></div>
-      </div>
+      </nav>
     </div>
   );
 }

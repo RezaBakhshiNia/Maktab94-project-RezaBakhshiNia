@@ -30,8 +30,8 @@ function Footer() {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="text-white" to="/about">
-                  درباره ما
+                <NavLink className="text-white" to="/products">
+                  همه محصولات
                 </NavLink>
               </li>
               <li>
