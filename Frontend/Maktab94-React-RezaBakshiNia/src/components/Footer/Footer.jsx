@@ -1,92 +1,64 @@
-import { MDBFooter, MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
-import { NavLink } from "react-router-dom";
+import "./Footer.scss";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <MDBFooter
-      bgColor="secondary"
-      className="text-white text-center text-lg-left shadow-lg"
-    >
-      <MDBContainer className="p-4">
-        <MDBRow>
-          <MDBCol lg="6" md="12" className="mb-4 mb-md-0">
-            <h5 className="text-uppercase">🤩به فروشگاه لپتاپیا خوش آمدید🤩</h5>
-
+    <>
+      <footer className="footer">
+        <div className="footer-right">
+          <p className="footer-about">
+            <span> در باره ما:</span> هدف فروشگاه لپتاپیا، ارائه خدمات و محصولات
+            با کیفیت بالا به مشتریان عزیز است.💫 تمرکز ما بر فروش لپ تاپ ها و
+            لوازم جانبی آنها است💻، سعی داریم تا نیازهای روز دنیای فناوری شما را
+            برآورده کنیم و به شما تجربه خریدی مطمئن و رضایت بخش ارائه دهیم.💝
+          </p>
+          <div className="footer-icons">
+            <a href="#">
+              <i className="bi bi-facebook"></i>
+            </a>
+            <a href="#">
+              <i className="bi bi-telegram"></i>
+            </a>
+            <a href="#">
+              <i className="bi bi-linkedin"></i>
+            </a>
+            <a href="#">
+              <i className="bi bi-instagram"></i>
+            </a>
+          </div>
+        </div>
+        <div className="footer-center">
+          <div>
+            <i className="fa fa-map-marker"></i>
             <p>
-              هدف فروشگاه لپتاپیا، ارائه خدمات و محصولات با کیفیت بالا به
-              مشتریان عزیز است.💫 تمرکز ما بر فروش لپ تاپ ها و لوازم جانبی آنها است💻، سعی
-              داریم تا نیازهای روز دنیای فناوری شما را برآورده کنیم و به شما تجربه خریدی
-              مطمئن و رضایت بخش ارائه دهیم.💝
+              <span> آدرس و شماره تلفن:</span> دهدشت، ایران
             </p>
-          </MDBCol>
-
-          <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-            <h5>پیوند های اصلی</h5>
-
-            <ul className="list-unstyled mb-0">
-              <li>
-                <NavLink className="text-white" to="/admin">
-                  مدیریت
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="text-white" to="/products">
-                  همه محصولات
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="text-white" to="/contact">
-                  راه ارتباطی
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="text-white" to="/">
-                  صفحه اصلی
-                </NavLink>
-              </li>
-            </ul>
-          </MDBCol>
-
-          <MDBCol lg="3" md="6" className="mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-0">مجازی</h5>
-
-            <ul className="list-unstyled">
-              <li>
-                <a href="#!" className="text-white">
-                  تلگرام
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="text-white">
-                  یوتیوب
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="text-white">
-                  اینستاگرام
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="text-white">
-                  لینکدین
-                </a>
-              </li>
-            </ul>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-
-      <div
-        className="text-center p-3"
-        dir="ltr"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-      >
-        &copy; {new Date().getFullYear()} Copyright:{" "}
-        <a className="text-white" href="http://localhost:5173/">
-          laptopia.com 🇮🇷
-        </a>
-      </div>
-    </MDBFooter>
+          </div>
+          <div>
+            <i className="bi bi-telephone"></i>
+            <p dir="ltr"> (+98) 912 345 678</p>
+          </div>
+          <div>
+            <i className="bi bi-envelope-at"></i>
+            <p>
+              <a href="#"> office@laptopia.com</a>
+            </p>
+          </div>
+        </div>
+        <div className="footer-left">
+          <h2>
+            لپتاپیا{" "}
+            <img id="footerLogo" src="./src/assets/logo1.jfif" alt="logo" />
+          </h2>
+          <p className="footer-menu">
+            <Link to="http://localhost:5173/"> صفحه اصلی</Link> | <Link to="/about"> درباره ما</Link> |{" "}
+            <Link to="#"> خدمات</Link> | <Link to="#"> وبلاگ خبری</Link> |{" "}
+            <Link to="/contact"> ارتباط</Link>
+          </p>
+          <p className="footer-name"> لپتاپیا &copy; 2023</p>
+        </div>
+      </footer>
+    </>
   );
 }
 

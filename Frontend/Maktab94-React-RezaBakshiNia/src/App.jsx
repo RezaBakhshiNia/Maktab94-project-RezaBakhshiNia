@@ -42,7 +42,7 @@ function App() {
           </Route>
           <Route path="userLogin" element={<LogIn />} />
           <Route path="userSignUp" element={<SignUp />} />
-          <Route path="adminLogIn" element={<AdminLogIn />} />
+          <Route path="admin-authentication" element={<AdminLogIn />} />
           <Route path="comparison" element={<Comparison />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>

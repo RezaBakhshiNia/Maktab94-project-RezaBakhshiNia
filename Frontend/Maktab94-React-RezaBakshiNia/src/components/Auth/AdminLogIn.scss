@@ -1,0 +1,120 @@
+.AdminLogIn_container {
+  margin:  2rem auto;
+  padding: 1rem;
+  border-radius: 2.5rem;
+  background-color: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  width: 40%;
+}
+
+.AdminLogIn_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.AdminLogIn_logo {
+  display: flex;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.AdminLogIn_logo--circle {
+  margin: auto;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  border-radius: 9999px;
+  /* 	border: 1px solid black; */
+  box-shadow: 0px 0px 2px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaaf,
+    -8px -8px 15px #ffffff;
+}
+
+.logo__svg {
+  margin: auto;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+}
+
+.AdminLogIn_form__title {
+  h3 {
+    color: #5f5f5f;
+  }
+}
+
+.AdminLogIn_form__group {
+  width: 18rem;
+  position: relative;
+}
+
+.AdminLogIn_form__icon {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  display: flex;
+  width: 3rem;
+}
+
+.AdminLogIn_form__icon svg {
+  margin: auto;
+  height: 0.75rem;
+  opacity: 0.35;
+}
+
+.AdminLogIn_form__control {
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  font-size: 0.875rem;
+  padding: 1rem;
+  padding-left: 2.5rem;
+  width: 100%;
+  border-radius: 1.5rem;
+  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+}
+
+.AdminLogIn_form__control:focus {
+  outline: none;
+  box-shadow: inset 8px 8px 8px #c5c5c5, inset -8px -8px 8px #ffffff;
+}
+
+.AdminLogIn_form__control:focus::placeholder {
+  color: #5f5f5f;
+  letter-spacing: 0.05em;
+}
+
+.AdminLogIn_form__control::placeholder {
+  color: #cccccc;
+}
+
+.AdminLogIn_form__button {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  font-size: 1rem;
+  color: #5f5f5f;
+  background-color: #acdab4;
+  width: 100%;
+  display: block;
+  padding: 0.5rem 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+}
+
+.AdminLogIn_form__button:focus {
+  outline: none;
+  box-shadow: 3px 3px 20px #b1b1b1, -3px -3px 20px #ffffff;
+}
+
+.AdminLogIn_form__button:hover {
+  background-color: #a1daab;
+}
+
+@media (max-width: 780px) {
+  .AdminLogIn_container {
+    width: max-content;
+  }
+}

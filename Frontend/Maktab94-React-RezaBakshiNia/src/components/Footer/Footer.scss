@@ -1,0 +1,92 @@
+.footer {
+  background-color: #414141;
+  color: #c2c2c2;
+  width: 100%;
+  text-align: left;
+  font-family: "Vazir", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 1.5rem;
+  margin-top: 3.5rem;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  .footer-right,
+  .footer-left,
+  .footer-center {
+    flex-basis: 33.33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.footer-icons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 2rem;
+  i {
+    font-size: 2rem;
+  }
+  .bi-facebook:hover {
+    color: #3b5998;
+  }
+  .bi-telegram:hover {
+    color: #0088cc;
+  }
+  .bi-linkedin:hover {
+    color: #0a66c2;
+  }
+  .bi-instagram:hover {
+    color: #feda75;
+  }
+}
+
+.footer-center div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  a:hover {
+    color: #4cb7ec;
+  }
+}
+
+.footer-left h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-direction: row-reverse;
+  img {
+    width: 3.5rem;
+    border-radius: 50%;
+  }
+}
+
+.footer-menu {
+  a:hover {
+    color: #4cb7ec;
+  }
+  a {
+    color: #a5a4a4;
+  }
+}
+
+@media (max-width: 850px) {
+  .footer {
+    flex-direction: column;
+    row-gap: 2rem;
+    flex-basis: 0;
+    padding: 2rem 5rem;
+  }
+  .footer div {
+    width: 100%;
+  }
+}

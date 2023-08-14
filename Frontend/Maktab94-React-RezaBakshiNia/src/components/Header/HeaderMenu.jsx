@@ -23,7 +23,7 @@ function HeaderMenu() {
             {dropDownCategoryIsOpen && <CategoryDropDown />}
           </div>
           <div className="admin">
-            <NavLink to="/admin">مدیریت</NavLink>
+            <NavLink to="/admin-authentication">مدیریت</NavLink>
           </div>
           <div className="about">
             <NavLink to="/about">درباره ما</NavLink>
