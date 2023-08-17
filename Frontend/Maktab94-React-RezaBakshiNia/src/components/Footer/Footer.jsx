@@ -48,7 +48,7 @@ function Footer() {
         <div className="footer-left">
           <h2>
             لپتاپیا{" "}
-            <img id="footerLogo" src="./src/assets/logo1.jfif" alt="logo" />
+            <img id="footerLogo" src="/assets/logo1.jfif" alt="logo" />
           </h2>
           <p className="footer-menu">
             <Link to="http://localhost:5173/"> صفحه اصلی</Link> | <Link to="/about"> درباره ما</Link> |{" "}

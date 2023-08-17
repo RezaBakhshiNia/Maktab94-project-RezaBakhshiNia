@@ -6,7 +6,7 @@ const CategoryDropDown = () => {
       <div className="category-dropDown-rightSide">
         <h3>یکم بگردیم...</h3>
         <img
-          src="./src/assets/animated_laptop.gif"
+          src="/assets/animated_laptop.gif"
           alt="animated_laptop"
         />
       </div>
