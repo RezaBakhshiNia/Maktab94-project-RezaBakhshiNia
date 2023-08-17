@@ -1,0 +1,283 @@
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+.adminPages-container {
+  width: 98%;
+  margin: 3rem auto;
+  background-color: #f7f5f5;
+  // background-color: #c4dbe0;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  @include flex(row, space-between, center);
+}
+
+.__react_component_tooltip {
+  background-color: #333;
+  color: #fff;
+}
+
+.admin_navbar {
+  @include flex(row, space-between, center);
+  padding: 1rem;
+}
+
+.bi.bi-power {
+  cursor: pointer;
+  font-size: xx-large;
+  color: red;
+  background-color: #f0f0f0;
+  border-radius: 7px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  transition: 250ms;
+}
+
+.bi.bi-power:active {
+  box-shadow: rgb(226, 226, 226) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  color: #ff9a47;
+}
+
+// Table in admin product
+.products-table-container {
+  direction: rtl;
+  padding: 1rem;
+  @include flex(column, center, center);
+  row-gap: 1em;
+  border-collapse: separate;
+}
+
+.products-table {
+  border: 1px solid #feffe0;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.products-table caption {
+  font-size: 1.5em;
+  margin: 0.5em 0 0.75em;
+}
+
+.products-table tr {
+  background-color: #f7f3ee;
+  border: 1px solid #f5ffda;
+  padding: 0.35em;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.products-table th,
+.products-table td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+.products-table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  background-color: #e7e7de;
+  cursor: pointer;
+}
+
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 2em;
+  i {
+    cursor: pointer;
+  }
+  .bi-trash3-fill {
+    color: tomato;
+    margin-left: 2em;
+  }
+  .bi-wrench-adjustable {
+    color: #06a568;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .products-table {
+    border: 0;
+  }
+
+  .products-table caption {
+    font-size: 1.3em;
+  }
+
+  .products-table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .products-table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  .products-table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  .products-table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .products-table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+#data-image {
+  width: 3rem;
+}
+
+// AdminSideBarMenu component
+
+.sidebar {
+  width: max-content;
+  padding: 0 0.5em;
+  height: 24.5em;
+  position: sticky;
+  left: 0.5em;
+  @include flex(column, center, center);
+  cursor: pointer;
+  background: #d0fdf921;
+  transition: 250ms;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  box-shadow: -20px 0px 25px 0px rgba(128, 128, 128, 0.28);
+}
+
+.sidebar:hover {
+  cursor: pointer;
+}
+
+.navigations-links {
+  @include flex(column, center, center);
+  row-gap: 2em;
+  padding: 0.625rem 0;
+}
+
+.sidebar_menu-title {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.325rem;
+}
+
+// Add new product btn
+.pagination-addNewItemBtn {
+  @include flex(row, space-between, center);
+  width: 100%;
+}
+.Add-new-product {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "Vazir", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding: 0 1em;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 15px;
+}
+
+.Add-new-product:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.Add-new-product:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.Add-new-product:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+@media (max-width: 600px) {
+  .adminPages-container {
+    flex-direction: column;
+  }
+
+  .sidebar,
+  .navigations-links {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    max-height: 4em;
+    width: 100%;
+    margin-top: 1em;
+    justify-content: space-between;
+    border-radius: 7px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    h3 {
+      width: max-content;
+      margin: 0;
+      padding: 0;
+    }
+    .navigations-links {
+      column-gap: 1.5em;
+    }
+  }
+
+  .sidebar_menu-title {
+    border-bottom: none;
+  }
+}

@@ -1,13 +1,15 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import "react-tippy/dist/tippy.css";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../components/Admin/AdminPages.scss";
+import AdminSideBarMenu from '../components/Admin/AdminSideBarMenu';
+// import { useState } from "react";
+
 function Admin() {
   return (
-    <div>
-      <h1>صفحه ادمین</h1>
-      <div>
-        <Link to={'http://localhost:5173/admin/products'}>کالا ها</Link>
-        <Link to={'http://localhost:5173/admin/inventory-prices'}>موجودی ها و قیمت</Link>
-        <Link to={'http://localhost:5173/admin/orders'}>سفارش ها</Link>
-      </div>
+    <div className="adminPages-container">
+      <AdminSideBarMenu/>
       <Outlet />
     </div>
   );
