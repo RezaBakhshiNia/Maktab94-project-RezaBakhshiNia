@@ -1,4 +1,5 @@
 import { Tooltip } from "react-tippy";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const AdminProductsPage = () => {
   return (

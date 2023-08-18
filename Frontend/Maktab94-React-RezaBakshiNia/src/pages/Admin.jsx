@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import "react-tippy/dist/tippy.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import "../components/Admin/AdminPages.scss";
 import AdminSideBarMenu from '../components/Admin/AdminSideBarMenu';
 // import { useState } from "react";

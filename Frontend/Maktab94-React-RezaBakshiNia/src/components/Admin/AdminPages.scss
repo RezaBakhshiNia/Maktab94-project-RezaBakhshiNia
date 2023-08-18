@@ -281,3 +281,150 @@
     border-bottom: none;
   }
 }
+
+// AddEditProduct component
+
+.Add-Edit-container {
+  @include flex(row, center, center);
+  width: 90%;
+  .Add-Edit-wrapper {
+    @include flex(column, center, center);
+    row-gap: 2em;
+    background-color: #e7e7de;
+    padding: 2em;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .Add-Edit-header {
+      width: 100%;
+      @include flex(row, space-between, center);
+      i {
+        cursor: pointer;
+        color: rgb(170, 61, 49);
+      }
+    }
+    form {
+      text-align: center;
+      div,
+      input {
+        margin-bottom: 1em;
+      }
+      input[type="file"] {
+        appearance: none; /* Remove default styles */
+        background-image: radial-gradient(
+          100% 100% at 100% 0,
+          #5adaff 0,
+          #54b2ff 100%
+        );
+        color: white; /* Set text color to white */
+        border-radius: 5px; /* Set border radius to 5px */
+        padding: 8px 12px; /* Adjust padding as needed */
+        border: none; /* Remove border */
+        cursor: pointer; /* Show pointer cursor on hover */
+      }
+
+      #product-name-input-field {
+        appearance: none;
+        border: 1px solid gray;
+        width: 90%;
+        padding: 0.3em;
+        border-radius: 7px;
+      }
+    }
+  }
+}
+
+.uploader-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 0.3em;
+  background-color: #f7fde73f;
+  padding: 0.3;
+  border-radius: 7px;
+  img {
+    width: 3em;
+    border-radius: 50%;
+  }
+}
+
+.gallery-photo {
+  position: relative;
+  display: inline-block;
+  .bi-x-lg {
+    position: absolute;
+    display: none;
+    left: 70%;
+    bottom: 70%;
+    color: red;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+    font-size: large;
+    font-weight: bolder;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &:hover i {
+    display: block;
+  }
+}
+
+.AddProduct-SelectOption {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
+
+// InventoryAndPrices component
+
+.InventoryAndPrices,
+.AdminOrdersPage {
+  @include flex(column, center, center);
+  row-gap: 2em;
+  width: 90%;
+  padding: 1.3em;
+}
+
+.InventoryAndPrices-head-title,
+.AdminOrdersPage-head-title {
+  width: inherit;
+  @include flex(row, space-between, center);
+}
+
+//AdminOrdersPage
+
+.AdminOrdersPage-delivery-status {
+  display: flex;
+  column-gap: 1em;
+  position: relative;
+}
+
+// DeliveryModal 
+
+#DeliveryModal {
+  position: absolute;
+  background-color: #ddd;
+  width: 40%;
+  padding: 1rem;
+  border-radius: 7px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  font-size: small;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1em;
+}
+
+.DeliveryModal_head-title {
+  width: 100%;
+  @include flex(row, space-between, center);
+  i {
+    cursor: pointer;
+    color: #cf4128;
+  }
+}
+
+.Delivery_info {
+  align-self: flex-start;
+}

@@ -1,34 +1,32 @@
-import { useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
-
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftToHtml from "draftjs-to-html";
+import { useEffect, useRef } from "react";
+import Quill from "quill";
+import "quill/dist/quill.snow.css"; // Import the Quill CSS
 
 const TextEditor = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const editorRef = useRef(null);
 
-  const onEditorStateChange = (newEditorState) => {
-    setEditorState(newEditorState);
-  };
+  useEffect(() => {
+    if (editorRef.current) {
+      const editor = new Quill(editorRef.current, {
+        theme: "snow", // Set the theme to 'snow' for the default Quill toolbar and styles
+        // Additional options...
+      });
 
-  console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+      // Optional: Add event listeners or further customization
+      // Example:
+      // editor.on('text-change', (delta, oldDelta, source) => {
+      //   console.log('Text changed:', editor.getText());
+      // });
 
-  return (
-    <div>
-      <Editor
-        editorState={editorState}
-        toolbarClassName="toolbarClassName"
-        wrapperClassName="wrapperClassName"
-        editorClassName="editorClassName"
-        onEditorStateChange={onEditorStateChange}
-      />
-      <textarea
-        disabled
-        value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-      ></textarea>
-    </div>
-  );
+      // Cleanup: Destroy the editor instance when the component unmounts
+      return () => {
+        editor.off("text-change");
+        editor.destroy();
+      };
+    }
+  }, []);
+
+  return <div ref={editorRef} />;
 };
 
 export default TextEditor;

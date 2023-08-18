@@ -24,13 +24,16 @@ const ImageUploader = () => {
   };
 
   return (
-    <div>
+    <div className="uploader-container">
       <input type="file" multiple onChange={handleFileChange} />
-      <div>
+      <div className="uploader-gallery">
         {selectedFiles.map((file) => (
-          <div key={file.id}>
+          <div key={file.id} className="gallery-photo">
             <img src={file.preview} alt={file.name} />
-            <button onClick={() => handleRemoveFile(file.id)}>Remove</button>
+            <i
+              className="bi bi-x-lg"
+              onClick={() => handleRemoveFile(file.id)}
+            />
           </div>
         ))}
       </div>

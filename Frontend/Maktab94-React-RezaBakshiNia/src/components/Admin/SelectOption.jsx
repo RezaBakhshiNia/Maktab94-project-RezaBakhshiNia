@@ -14,7 +14,7 @@ const SelectOption = () => {
   };
 
   return (
-    <div>
+    <div className="AddProduct-SelectOption">
       <select value={selectedOption} onChange={handleOptionChange}>
         <option value="">لطفاً نوع محصول را انتخاب کنید</option>
         <option value="laptop">لپ تاپ</option>
