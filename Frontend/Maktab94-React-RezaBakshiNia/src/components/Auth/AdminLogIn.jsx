@@ -2,8 +2,9 @@ import "./AdminLogIn.scss";
 import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
-
-const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
+import adminApiServices from "../../services/interceptor";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   userName: yup
@@ -15,18 +16,44 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .min(5, "حداقل 5 حرف.")
-    .matches(passwordRegEx, { message: "شامل اعداد و حروف انگلیسی باشد." })
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/, {
+      message: "شامل اعداد و حروف انگلیسی باشد.",
+    })
     .required("رمز الزامی است."),
 });
 
-const onSubmit = (values, actions) => {
-  console.log(values);
-  console.log(actions);
-  actions.resetForm();
-};
-
 const AdminLogIn = () => {
   const [inputType, setInputType] = useState("password");
+
+  const navigate = useNavigate();
+  const onSubmit = async (values, actions) => {
+    console.log(values);
+    console.log(actions);
+    // actions.resetForm();
+    try {
+      const response = await adminApiServices.post(
+        "/api/auth/login",
+        {
+          username: values.userName,
+          password: values.password,
+        }
+      );
+
+      // Assuming the response contains the access token and refresh token
+      const { accessToken, refreshToken } = response.data.token;
+      console.log(response.data + "\n" + accessToken + "\n" + refreshToken);
+
+      // Save the tokens in cookies using js-cookie
+      Cookies.set("accessToken", accessToken);
+      Cookies.set("refreshToken", refreshToken);
+
+      // Navigate the user to another page
+      navigate("/admin");
+    } catch (error) {
+      // Handle error if the login request fails
+      console.error(error);
+    }
+  };
 
   const {
     values,

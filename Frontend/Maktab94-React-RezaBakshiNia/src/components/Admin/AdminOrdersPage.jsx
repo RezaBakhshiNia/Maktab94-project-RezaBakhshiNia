@@ -3,6 +3,7 @@ import DeliveryModal from "./DeliveryModal";
 
 const AdminOrdersPage = () => {
   const [DeliveryModalIsOpen, setDeliveryModalIsOpen] = useState(false);
+  // Create search bar for admin
   return (
     <div className="AdminOrdersPage">
       <div className="AdminOrdersPage-head-title">
@@ -94,7 +95,7 @@ const AdminOrdersPage = () => {
           </li>
         </ul>
       </nav>
-      {/* <DeliveryModal /> */}
+      <DeliveryModal />
       {DeliveryModalIsOpen && <DeliveryModal />}
     </div>
   );
