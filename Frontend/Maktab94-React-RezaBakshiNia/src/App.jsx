@@ -33,7 +33,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="admin" element={<Admin />}>
             <Route index element={<AdminHomePage />} />
-            <Route path="products" element={<AdminProductsPage />} />
+            <Route path="products/*" element={<AdminProductsPage />} />
             <Route path="AddEditProduct/*" element={<AddEditProductModal />} />
             <Route path="inventory-prices" element={<InventoryAndPrices />} />
             <Route path="orders" element={<AdminOrdersPage />} />

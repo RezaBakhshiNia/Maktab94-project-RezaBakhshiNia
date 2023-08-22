@@ -157,6 +157,11 @@
   width: 3rem;
 }
 
+// pagination nav => ul
+.page-link {
+  cursor: pointer;
+}
+
 // AdminSideBarMenu component
 
 .sidebar {
@@ -399,7 +404,7 @@
   position: relative;
 }
 
-// DeliveryModal 
+// DeliveryModal
 
 #DeliveryModal {
   position: absolute;
@@ -427,4 +432,30 @@
 
 .Delivery_info {
   align-self: flex-start;
+}
+
+// Delete Modal Container
+
+.deleteModalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 1rem;
+  img {
+    width: 50%;
+  }
+  button {
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    border: 1px solid rgb(145, 145, 145);
+    border-radius: 4px;
+    width: 40%;
+    background-color: #cf4128;
+  }
+  #confrim-btn_delete-Modal {
+    margin-bottom: 0.5em;
+    background-color: #06a568;
+  }
 }
