@@ -12,7 +12,7 @@
   // background-color: #c4dbe0;
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  @include flex(row, space-between, center);
+  @include flex(row, space-between, stretch);
 }
 
 .__react_component_tooltip {
@@ -157,20 +157,15 @@
   width: 3rem;
 }
 
-// pagination nav => ul
-.page-link {
-  cursor: pointer;
-}
-
 // AdminSideBarMenu component
 
 .sidebar {
   width: max-content;
   padding: 0 0.5em;
-  height: 24.5em;
+  // height: 24.5em;
   position: sticky;
   left: 0.5em;
-  @include flex(column, center, center);
+  @include flex(column, center, null);
   cursor: pointer;
   background: #d0fdf921;
   transition: 250ms;
@@ -388,6 +383,7 @@
   row-gap: 2em;
   width: 90%;
   padding: 1.3em;
+  margin: auto;
 }
 
 .InventoryAndPrices-head-title,
@@ -451,11 +447,64 @@
     color: #fff;
     border: 1px solid rgb(145, 145, 145);
     border-radius: 4px;
-    width: 40%;
     background-color: #cf4128;
+    width: 40%;
   }
   #confrim-btn_delete-Modal {
     margin-bottom: 0.5em;
     background-color: #06a568;
   }
+}
+
+.editModalContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5em;
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .editModalContainer_rightSide,
+  .editModalContainer_leftSide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+  img {
+    width: 10rem;
+    @media (max-width: 300px) {
+      width: 5rem;
+    }
+  }
+  button {
+    min-width: 100%;
+    padding: 0.2rem;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    border: 1px solid rgb(145, 145, 145);
+    border-radius: 4px;
+    background-color: #cf4128;
+    @media (max-width: 300px) {
+    }
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    width: 100%;
+    input {
+      width: 100%;
+    }
+    #confrim-btn_delete-Modal {
+      background-color: #06a568;
+    }
+  }
+}
+
+// pagination nav => ul
+.page-link {
+  cursor: pointer;
+  z-index: 0;
 }

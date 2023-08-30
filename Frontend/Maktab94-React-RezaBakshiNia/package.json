@@ -13,6 +13,7 @@
     "@material-tailwind/react": "^2.1.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.32.6",
+    "@tanstack/react-query-devtools": "^4.33.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
