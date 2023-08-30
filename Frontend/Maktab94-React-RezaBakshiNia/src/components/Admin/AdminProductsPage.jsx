@@ -1,68 +1,69 @@
 import { Tooltip } from "react-tippy";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import publicApiServices from "../../services/publicApi";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import Pagination from "./common/pagination";
+import DeleteModalContainer from "./common/DeleteModalContainer";
 
 Modal.setAppElement("#root");
 
 const AdminProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null);
-  const [products, setProducts] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [triggerDelete, setTriggerDelete] = useState(false);
-  const [productForDetails, setProductForDetails] = useState(null);
+  const [productDetailsForModal, setProductDetailsForModal] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [sortingType, setSortingType] = useState("price&name");
+  const [totalPages, setTotalPages] = useState(null);
+  const [triggerChanges, setTriggerChanges] = useState(false);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await publicApiServices.get(
-          `/api/products?page=${currentPage}&limit=5&fields=-rating,-createdAt,-updatedAt,-__v&sort=price&quantity[gte]=8`
+          `/api/products?page=${currentPage}&limit=5&fields=-rating,-createdAt,-updatedAt,-__v&sort=${sortingType}[gte]=8`
         );
-        setTotalPages(+response.data.total_pages);
-        console.log(+response.data.total_pages);
         setProducts(response.data.data.products);
         console.log(response.data.data.products);
+        console.log(response.data);
+        setTotalPages(+response.data?.total_pages || null);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [currentPage, triggerDelete]);
+  }, [currentPage, sortingType, triggerChanges]);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  const pageNumbers = [];
-
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
-  const deleteProductById = async (id) => {
+  const handleDelete = async (id) => {
     try {
       const response = await publicApiServices.delete(`/api/products/${id}`);
-      console.log("Product deleted successfully:", response.data);
-      toast.success("محصول مورد نظر حذف شد.");
-      setTriggerDelete(!triggerDelete);
+      const resault = response.data;
+      console.log(resault);
+      toast.success("محصول با موفقیت حذف شد.");
+      setTriggerChanges(!triggerChanges);
     } catch (error) {
-      console.error("Error deleting product:", error);
-      toast.error("حذف محصول با خطاء مواجه شد.");
+      console.error(error);
+      toast.error("خطاء در فرایند حذف محصول.");
     }
   };
-
-  const handleDelete = (id) => {
-    deleteProductById(id);
-    setModalIsOpen(false);
-  };
-
   return (
     <div className="products-table-container">
       <table className="products-table rounded-table">
         <thead>
           <tr>
             <th scope="col">تصویر</th>
-            <th scope="col">نام کالا</th>
-            <th scope="col">دسته بندی</th>
+            <th scope="col" onClick={() => setSortingType("name&brand")}>
+              نام کالا
+            </th>
+            <th scope="col" onClick={() => setSortingType("brand&name")}>
+              دسته بندی
+            </th>
             <th scope="col">اعمال تغییرات</th>
           </tr>
         </thead>
@@ -88,7 +89,7 @@ const AdminProductsPage = () => {
                     <i
                       className="bi bi-trash3-fill"
                       onClick={() => {
-                        setProductForDetails({
+                        setProductDetailsForModal({
                           name: item.name,
                           image: `http://localhost:8000/images/products/images/${item.images[0]}`,
                           id: item._id,
@@ -102,7 +103,12 @@ const AdminProductsPage = () => {
                     position="top"
                     trigger="mouseenter"
                   >
-                    <i className="bi bi-wrench-adjustable" />
+                    <i
+                      className="bi bi-wrench-adjustable"
+                      onClick={() =>
+                        navigate(`/admin/AddEditProduct/proudct-id:${item._id}`)
+                      }
+                    />
                   </Tooltip>
                 </td>
               </tr>
@@ -110,28 +116,18 @@ const AdminProductsPage = () => {
         </tbody>
       </table>
       <div className="pagination-addNewItemBtn">
-        <button className="Add-new-product">افزودن کالا</button>
-        <nav dir="ltr" aria-label="...">
-          <ul className="pagination pagination-sm">
-            {pageNumbers.map((pageNumber) => (
-              <li
-                key={pageNumber}
-                className={`page-item ${
-                  pageNumber === currentPage ? "active" : ""
-                }`}
-                aria-current={pageNumber === currentPage ? "page" : undefined}
-              >
-                <a
-                  className="page-link"
-                  to="#"
-                  onClick={() => setCurrentPage(pageNumber)}
-                >
-                  {pageNumber}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <button
+          className="Add-new-product"
+          onClick={() => navigate("/admin/addEditProduct")}
+        >
+          افزودن کالا
+        </button>
+        <Pagination
+          pageNumbers={pageNumbers}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          direction={"ltr"}
+        />
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -152,29 +148,11 @@ const AdminProductsPage = () => {
           },
         }}
       >
-        <div className="deleteModalContainer">
-          <h4>تایید حذف محصول</h4>
-          <img
-            src={productForDetails && productForDetails.image}
-            alt="modal-delete-image"
-          />
-          <p>
-            از حذف محصول {productForDetails && productForDetails.name} اطمینان
-            دارید؟
-          </p>
-          <button
-            id="confrim-btn_delete-Modal"
-            onClick={() => handleDelete(productForDetails.id)}
-          >
-            حذف شود
-          </button>
-          <button
-            id="cancel-btn_delete-Modal"
-            onClick={() => setModalIsOpen(false)}
-          >
-            لغو
-          </button>
-        </div>
+        <DeleteModalContainer
+          productDetailsForModal={productDetailsForModal}
+          handleDelete={handleDelete}
+          setModalIsOpen={setModalIsOpen}
+        />
       </Modal>
     </div>
   );
