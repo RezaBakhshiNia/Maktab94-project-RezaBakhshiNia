@@ -1,8 +1,9 @@
+import LandingPage from "../components/home/LandingPage";
 
 function Home() {
   return (
     <>
-      خانه
+      <LandingPage />
     </>
   );
 }
