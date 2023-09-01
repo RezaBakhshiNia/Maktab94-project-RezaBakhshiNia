@@ -18,7 +18,6 @@ import PageNotFound from "./pages/PageNotFound";
 import Comparison from "./pages/Comparison";
 import Products from "./components/common/Products";
 import Product from "./components/common/Product";
-import AddEditProductModal from "./components/Admin/AddEditProductModal";
 
 function App() {
   return (
@@ -33,8 +32,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="admin" element={<Admin />}>
             <Route index element={<AdminHomePage />} />
-            <Route path="products" element={<AdminProductsPage />} />
-            <Route path="AddEditProduct/:id" element={<AddEditProductModal />} />
+            <Route path="products/*" element={<AdminProductsPage />} />
             <Route path="inventory-prices" element={<InventoryAndPrices />} />
             <Route path="orders" element={<AdminOrdersPage />} />
           </Route>

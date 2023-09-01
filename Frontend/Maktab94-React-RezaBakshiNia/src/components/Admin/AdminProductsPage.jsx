@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Pagination from "./common/pagination";
 import DeleteModalContainer from "./common/DeleteModalContainer";
+import AddEditProductModal from "./AddEditProductModal";
 
 Modal.setAppElement("#root");
 
@@ -18,6 +19,7 @@ const AdminProductsPage = () => {
   const [sortingType, setSortingType] = useState("price&name");
   const [totalPages, setTotalPages] = useState(null);
   const [triggerChanges, setTriggerChanges] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -105,9 +107,13 @@ const AdminProductsPage = () => {
                   >
                     <i
                       className="bi bi-wrench-adjustable"
-                      onClick={() =>
-                        navigate(`/admin/AddEditProduct/proudct-id:${item._id}`)
-                      }
+                      onClick={() => {
+                        navigate(
+                          `/admin/products/AddEditProduct/${item._id}`
+                        );
+                        localStorage.setItem('editProductById', item._id);
+                        setEditModalIsOpen(true);
+                      }}
                     />
                   </Tooltip>
                 </td>
@@ -118,7 +124,7 @@ const AdminProductsPage = () => {
       <div className="pagination-addNewItemBtn">
         <button
           className="Add-new-product"
-          onClick={() => navigate("/admin/addEditProduct")}
+          onClick={() => setEditModalIsOpen(true)}
         >
           افزودن کالا
         </button>
@@ -154,6 +160,9 @@ const AdminProductsPage = () => {
           setModalIsOpen={setModalIsOpen}
         />
       </Modal>
+      {editModalIsOpen && (
+        <AddEditProductModal setEditModalIsOpen={setEditModalIsOpen} />
+      )}
     </div>
   );
 };

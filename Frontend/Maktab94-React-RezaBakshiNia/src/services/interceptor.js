@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const adminApiServices = axios.create({
   baseURL: "http://127.0.0.1:8000", // Your backend URL
@@ -9,8 +9,9 @@ const adminApiServices = axios.create({
 // Function to refresh the access token using the refresh token
 const refreshAccessToken = async () => {
   try {
+    console.log(Cookies.get("refreshToken"));
     const response = await adminApiServices.post("/api/auth/token", {
-      refresh_token: Cookies.get('refreshToken'),
+      refresh_token: Cookies.get("refreshToken"),
     });
     const { access_token } = response.data;
     // Update the access token in your Axios instance
@@ -43,6 +44,19 @@ adminApiServices.interceptors.response.use(
         // Ignored for ESLint
       }
     }
+    return Promise.reject(error);
+  }
+);
+
+adminApiServices.interceptors.request.use(
+  (config) => {
+    const accessToken = Cookies.get("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
     return Promise.reject(error);
   }
 );

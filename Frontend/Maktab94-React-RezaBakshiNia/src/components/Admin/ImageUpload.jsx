@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-const ImageUploader = () => {
+const ImageUploader = ({ handleImageChange }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-
     setSelectedFiles((prevSelectedFiles) => [
       ...prevSelectedFiles,
       ...files.map((file) =>
@@ -16,7 +15,6 @@ const ImageUploader = () => {
       ),
     ]);
   };
-
   const handleRemoveFile = (id) => {
     setSelectedFiles((prevSelectedFiles) =>
       prevSelectedFiles.filter((file) => file.id !== id)
@@ -25,7 +23,16 @@ const ImageUploader = () => {
 
   return (
     <div className="uploader-container">
-      <input type="file" multiple onChange={handleFileChange} />
+      <input
+        name="images"
+        required
+        className="custom-file-input"
+        type="file"
+        multiple
+        onChange={(e) => {
+          handleFileChange(e);
+        }}
+      />
       <div className="uploader-gallery">
         {selectedFiles.map((file) => (
           <div key={file.id} className="gallery-photo">

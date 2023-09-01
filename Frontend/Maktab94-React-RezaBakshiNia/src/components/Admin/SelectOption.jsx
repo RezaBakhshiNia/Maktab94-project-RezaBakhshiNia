@@ -1,29 +1,38 @@
 import { useState } from "react";
 
-const SelectOption = () => {
+const SelectOption = ({
+  handleCategoryChange,
+  handleSubCategoryChange,
+  productCategory,
+  productSubCategory,
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [laptopBrand, setLaptopBrand] = useState("");
 
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-    setLaptopBrand("");
+    handleCategoryChange(event.target.value);
+    handleSubCategoryChange("");
   };
 
   const handleBrandChange = (event) => {
-    setLaptopBrand(event.target.value);
+    handleSubCategoryChange(event.target.value);
   };
 
   return (
     <div className="AddProduct-SelectOption">
-      <select value={selectedOption} onChange={handleOptionChange}>
-        <option value="">لطفاً نوع محصول را انتخاب کنید</option>
+      <select value={productCategory} onChange={handleOptionChange}>
+        <option selected disabled>
+          لطفاً نوع محصول را انتخاب کنید
+        </option>
         <option value="laptop">لپ تاپ</option>
         <option value="accessories">لوازم جانبی</option>
       </select>
 
-      {selectedOption === "laptop" && (
+      {productCategory === "laptop" && (
         <select value={laptopBrand} onChange={handleBrandChange}>
-          <option value="">لطفاً برند لپ تاپ را انتخاب کنید</option>
+          <option selected disabled>
+            لطفاً برند لپ تاپ را انتخاب کنید
+          </option>
           <option value="asus">ایسوس</option>
           <option value="dell">دل</option>
           <option value="hp">اچ پی</option>
@@ -31,8 +40,8 @@ const SelectOption = () => {
         </select>
       )}
 
-      {selectedOption === "accessories" && (
-        <select>
+      {productCategory === "accessories" && (
+        <select onChange={handleBrandChange}>
           <option value="">لطفاً نوع لوازم جانبی را انتخاب کنید</option>
           <option value="mouse">موس</option>
           <option value="fan">فن</option>

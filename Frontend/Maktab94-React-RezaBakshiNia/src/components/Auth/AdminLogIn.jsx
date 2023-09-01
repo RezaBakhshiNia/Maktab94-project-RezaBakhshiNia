@@ -31,13 +31,10 @@ const AdminLogIn = () => {
     console.log(actions);
     // actions.resetForm();
     try {
-      const response = await adminApiServices.post(
-        "/api/auth/login",
-        {
-          username: values.userName,
-          password: values.password,
-        }
-      );
+      const response = await adminApiServices.post("/api/auth/login", {
+        username: values.userName,
+        password: values.password,
+      });
 
       // Assuming the response contains the access token and refresh token
       const { accessToken, refreshToken } = response.data.token;
@@ -46,7 +43,11 @@ const AdminLogIn = () => {
       // Save the tokens in cookies using js-cookie
       Cookies.set("accessToken", accessToken);
       Cookies.set("refreshToken", refreshToken);
+      console.log(Cookies.get("refreshToken"));
 
+      adminApiServices.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${accessToken}`;
       // Navigate the user to another page
       navigate("/admin");
     } catch (error) {
