@@ -5,6 +5,7 @@ const Product = () => {
   const productID = `${window.location.href}`;
   console.log(productID.split("/")[4]);
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,6 +21,18 @@ const Product = () => {
 
     fetchData();
   }, []);
+
+  const handleIncrease = () => {
+    if (quantity < 25) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   return (
     <div className="product-container">
@@ -43,11 +56,18 @@ const Product = () => {
               <h2>نام: {product.name}</h2>
               <p>توضیحات: {product.description}</p>
               <p>قیمت: {product.price} تومان</p>
-            <div className="buy-button">
-              <button class="button-30" role="button">
-                خرید
-              </button>
-            </div>
+              <div className="buy-button">
+                {product.quantity < 1 ? (
+                  <button className="button-30">خرید</button>
+                ) : (
+                  <button className="button-30">خرید</button>
+                )}
+              </div>
+              <div className="product-quantity">
+                <span onClick={handleIncrease}>+</span>
+                <b>{quantity}</b>
+                <span onClick={handleDecrease}>-</span>
+              </div>
             </div>
           </div>
         </div>

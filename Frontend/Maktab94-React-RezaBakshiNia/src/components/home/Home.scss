@@ -103,8 +103,8 @@
   padding: 1em;
   img {
     width: 8rem;
-    object-fit: cover;
-    background-color: #001557;
+    // height: 8rem;
+    object-fit: contain;
     border-radius: 7px;
   }
 }
@@ -155,4 +155,19 @@
 .button-30:active {
   box-shadow: #d6d6e7 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+.product-quantity {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1em;
+  background-color: tan;
+  width: max-content;
+  margin-top: 1em;
+  padding: 0.5rem;
+  border-radius: 7px;
+  span {
+    cursor: pointer;
+  }
 }
