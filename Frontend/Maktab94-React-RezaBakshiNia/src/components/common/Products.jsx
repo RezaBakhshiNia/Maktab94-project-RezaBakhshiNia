@@ -1,9 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 const Products = () => {
-  return (
-    <div>
-      همه محصولات
-    </div>
-  );
+  return <Outlet />;
 };
 
 export default Products;

@@ -26,7 +26,20 @@ function App() {
         <Route path="/" element={<Layout />}>
           {/* everything we pass here will replace in Outlet */}
           <Route index element={<Home />} />
-          <Route path="products" element={<Products />} />
+          <Route path="products" element={<Products />} >
+            {/* لوازم جانبی */}
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            {/* لوازم جانبی */}
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+            <Route path="" element={''} />
+          </Route>
           <Route path="product/*" element={<Product />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
