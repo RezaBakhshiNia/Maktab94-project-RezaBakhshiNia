@@ -49,7 +49,7 @@ const AdminLogIn = () => {
         "Authorization"
       ] = `Bearer ${accessToken}`;
       // Navigate the user to another page
-      navigate("/admin");
+      navigate("/admin/products");
     } catch (error) {
       // Handle error if the login request fails
       console.error(error);

@@ -131,12 +131,13 @@ const InventoryAndPrices = () => {
           // Handle the responses here
           console.log("All patch requests completed successfully:", responses);
           toast.success("تغیرات اعمال شد.");
+          setEditedData([]);
           setTriggerChanges(!triggerChanges);
         })
         .catch((error) => {
           // Handle errors here
           console.error("Error occurred during patch requests:", error);
-          toast.error('خطا در ثبت تغییرات');
+          toast.error("خطا در ثبت تغییرات");
         });
     } else {
       toast.error("هیچ تغیری ایجاد نشده است.");

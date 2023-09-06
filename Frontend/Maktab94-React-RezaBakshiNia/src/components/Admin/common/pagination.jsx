@@ -8,7 +8,7 @@ const Pagination = ({
   editedData,
 }) => {
   const paginationHandler = (pageNumber) => {
-    if (editedData) {
+    if (editedData && editedData.length > 0) {
       toast.error("ابتدا تغییرات را ذخیره کنید.");
     } else {
       setCurrentPage(pageNumber);

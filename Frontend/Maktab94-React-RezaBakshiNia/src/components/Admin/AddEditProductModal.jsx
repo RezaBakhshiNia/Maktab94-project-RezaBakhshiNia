@@ -5,13 +5,19 @@ import adminApiServices from "../../services/interceptor";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const AddEditProductModal = ({ setEditModalIsOpen }) => {
+const AddEditProductModal = ({
+  setEditModalIsOpen,
+  setTriggerChanges,
+  triggerChanges,
+}) => {
   const [productName, setProductName] = useState("");
   const [productImage, setProductImage] = useState(null);
   const [productCategory, setProductCategory] = useState("");
   const [productSubCategory, setProductSubCategory] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [productPrice, setProductPrice] = useState("");
+  const [productBrand, setProductBrand] = useState("");
   const navigate = useNavigate();
   const editProductById = localStorage.getItem("editProductById");
 
@@ -33,6 +39,8 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
           setSelectedFiles([
             `http://localhost:8000/images/products/images/${data.images[0]}`,
           ]);
+          setProductPrice(data.price);
+          setProductBrand(data.brand);
         } catch (error) {
           console.error("Error fetching product:", error);
         }
@@ -96,8 +104,9 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
       name: productName,
       description: productDescription,
       images: selectedFiles,
-      price: "120000",
-      brand: "Cooler Master",
+      price: productPrice,
+      brand: productBrand,
+      quantity: 0,
     };
     console.log(productObject);
     const form = new FormData();
@@ -120,6 +129,7 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
         );
         console.log("Product submitted successfully:", response.data);
         toast.success("کالا ویرایش شد.");
+        setTriggerChanges(!triggerChanges);
         handleCloseModal();
       } catch (error) {
         console.error("Error submitting product:", error);
@@ -150,7 +160,6 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
             <div className="uploader-container">
               <input
                 name="images"
-                required
                 className="custom-file-input"
                 type="file"
                 multiple
@@ -158,6 +167,7 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
                   handleFileChange(e);
                 }}
                 onBlur={() => handleImageChange(selectedFiles)}
+                required
               />
               <div className="uploader-gallery">
                 {selectedFiles.map((file) => (
@@ -174,12 +184,40 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
             <input
               type="text"
               placeholder="نام کالا"
-              id="product-name-input-field"
+              className="product-input-field"
               name="name"
               required
               value={productName}
               onChange={handleNameChange}
             />
+            <input
+              type="number"
+              placeholder="قیمت کالا"
+              name="price"
+              className="product-input-field"
+              min={1}
+              required
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
+            />
+            {/* <input
+              type="number"
+              placeholder="تعداد کالا"
+              name="quantity"
+              className="product-input-field"
+              min={1}
+              required
+            /> */}
+            <input
+              type="text"
+              placeholder="برند کالا"
+              name="brand"
+              className="product-input-field"
+              required
+              value={productBrand}
+              onChange={(e) => setProductBrand(e.target.value)}
+            />
+
             <div className="AddProduct-SelectOption">
               <select value={productCategory} onChange={handleCategoryChange}>
                 <option selected disabled>
@@ -217,12 +255,15 @@ const AddEditProductModal = ({ setEditModalIsOpen }) => {
                 </select>
               )}
             </div>
-            <ReactQuill
-              id="description"
-              name="description"
-              value={productDescription}
-              onChange={handleDescriptionChange}
-            />
+            <div className="responsive-quill">
+              <ReactQuill
+                className="quill-editor"
+                id="description"
+                name="description"
+                value={productDescription}
+                onChange={handleDescriptionChange}
+              />
+            </div>
             <button className="Add-new-product" type="submit">
               ذخیره
             </button>

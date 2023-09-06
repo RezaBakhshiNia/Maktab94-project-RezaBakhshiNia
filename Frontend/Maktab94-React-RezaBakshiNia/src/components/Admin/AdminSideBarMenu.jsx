@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tippy";
 
 const AdminSideBarMenu = () => {
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
       <h3 className="sidebar_menu-title">داشبورد</h3>
@@ -32,7 +33,7 @@ const AdminSideBarMenu = () => {
           position="top"
           trigger="mouseenter"
         >
-          <i className="bi bi-power"></i>
+          <i className="bi bi-power" onDoubleClick={() => navigate("/")}></i>
         </Tooltip>
       </nav>
     </div>

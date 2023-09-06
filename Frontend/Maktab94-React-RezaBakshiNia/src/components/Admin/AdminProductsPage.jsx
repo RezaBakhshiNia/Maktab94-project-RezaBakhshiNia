@@ -48,6 +48,9 @@ const AdminProductsPage = () => {
       const resault = response.data;
       console.log(resault);
       toast.success("محصول با موفقیت حذف شد.");
+      if (products.length === 1) {
+        setCurrentPage(currentPage - 1);
+      }
       setTriggerChanges(!triggerChanges);
     } catch (error) {
       console.error(error);
@@ -108,10 +111,8 @@ const AdminProductsPage = () => {
                     <i
                       className="bi bi-wrench-adjustable"
                       onClick={() => {
-                        navigate(
-                          `/admin/products/AddEditProduct/${item._id}`
-                        );
-                        localStorage.setItem('editProductById', item._id);
+                        navigate(`/admin/products/AddEditProduct/${item._id}`);
+                        localStorage.setItem("editProductById", item._id);
                         setEditModalIsOpen(true);
                       }}
                     />
@@ -161,7 +162,11 @@ const AdminProductsPage = () => {
         />
       </Modal>
       {editModalIsOpen && (
-        <AddEditProductModal setEditModalIsOpen={setEditModalIsOpen} />
+        <AddEditProductModal
+          setEditModalIsOpen={setEditModalIsOpen}
+          setTriggerChanges={setTriggerChanges}
+          triggerChanges={triggerChanges}
+        />
       )}
     </div>
   );

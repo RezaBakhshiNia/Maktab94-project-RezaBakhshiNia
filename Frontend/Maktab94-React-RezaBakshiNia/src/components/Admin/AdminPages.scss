@@ -311,7 +311,7 @@
       gap: 0.5rem;
       text-align: center;
       small {
-        color:#cf4128;
+        color: #cf4128;
       }
       div {
         width: 80%;
@@ -346,12 +346,29 @@
         background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
       }
 
-      #product-name-input-field {
+      .product-input-field {
         appearance: none;
-        border: 1px solid gray;
-        width: 90%;
+        outline: none;
+        border: none;
         padding: 0.3em;
         border-radius: 7px;
+        width: 80%;
+        border-bottom: 2px solid #33333388;
+      }
+      .AddProduct-SelectOption {
+        width: 80%;
+        select {
+          @extend .product-input-field;
+          width: 100%;
+        }
+      }
+      .responsive-quill {
+        width: 100%;
+        direction: ltr;
+      }
+
+      .quill-editor {
+        margin: auto;
       }
     }
   }
@@ -393,16 +410,13 @@
   .bi-x-lg {
     position: absolute;
     display: none;
-    left: 70%;
-    bottom: 70%;
+    left: 42%;
+    bottom: 0.01rem;
     color: red;
     cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
-    font-size: large;
-    font-weight: bolder;
-    &:hover {
-      opacity: 0.8;
-    }
+    font-size: xx-large;
+    font-weight: 900;
+    opacity: 0.6;
   }
   &:hover i {
     display: block;
