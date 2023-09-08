@@ -1,7 +1,9 @@
 const DeleteModalContainer = ({
   productDetailsForModal,
-  handleDelete,
   setModalIsOpen,
+  handleDelete,
+  setTriggerChanges,
+  triggerChanges,
 }) => {
   return (
     <div className="deleteModalContainer">
@@ -18,6 +20,7 @@ const DeleteModalContainer = ({
         id="confrim-btn_delete-Modal"
         onClick={() => {
           handleDelete(productDetailsForModal.id);
+          setTriggerChanges(!triggerChanges);
           setModalIsOpen(false);
         }}
       >

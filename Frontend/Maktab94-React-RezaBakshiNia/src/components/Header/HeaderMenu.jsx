@@ -9,7 +9,7 @@ function HeaderMenu() {
       <nav className="headerMenu-container">
         <div className="headerMenu-rightSide">
           <div className="category-wrapper">
-            <button
+            <span
               id="header_drop-down"
               onMouseEnter={() => setDropDownCategoryIsOpen(true)}
             >
@@ -19,7 +19,7 @@ function HeaderMenu() {
               ) : (
                 <i className="bi bi-caret-down"></i>
               )}
-            </button>
+            </span>
             {dropDownCategoryIsOpen && <CategoryDropDown />}
           </div>
           <div className="admin">

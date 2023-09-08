@@ -1,3 +1,5 @@
+import { formatNumberToCurrency } from "../../services/formatPrice";
+
 const ProductCart = ({ name, brand, price, imageSrc, quantity }) => {
   return (
     <div className="product">
@@ -13,7 +15,7 @@ const ProductCart = ({ name, brand, price, imageSrc, quantity }) => {
         </p>
         <p>
           <span>قیمت: </span>
-          <span>{price} تومان</span>
+          <span>{formatNumberToCurrency(price)}</span>
         </p>
       </div>
       <div className="product-cart-actions">

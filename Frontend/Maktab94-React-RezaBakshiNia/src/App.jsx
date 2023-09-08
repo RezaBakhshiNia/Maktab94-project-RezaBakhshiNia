@@ -29,6 +29,11 @@ import Mouse from "./components/Categories/Accessories/Mouse";
 import Fan from "./components/Categories/Accessories/Fan";
 import Rams from "./components/Categories/Accessories/Rams";
 import Charger from "./components/Categories/Accessories/Charger";
+import UserLoginPage from "./components/User/UserLoginPage";
+import PaymentGateway from "./components/User/PaymentGateway";
+import CancelPayment from "./components/User/CancelPayment";
+import PaymentSuccessPage from "./components/User/PaymentSuccessPage ";
+import DeliveryForm from "./components/User/DeliveryForm";
 
 function App() {
   return (
@@ -64,6 +69,7 @@ function App() {
             <Route path="orders" element={<AdminOrdersPage />} />
           </Route>
           <Route path="userProfile" element={<UserProfile />}>
+            <Route path="auth" element={<UserLoginPage />} />
             <Route path="cart" element={<Cart />}></Route>
             <Route path="profile" element={<Profile />}></Route>
           </Route>
@@ -71,8 +77,12 @@ function App() {
           <Route path="userSignUp" element={<SignUp />} />
           <Route path="admin-authentication" element={<AdminLogIn />} />
           <Route path="comparison" element={<Comparison />} />
+          <Route path="Cancel-Payment" element={<CancelPayment />} />
+          <Route path="Payment-Success-Page" element={<PaymentSuccessPage />} />
+          <Route path="DeliveryForm" element={<DeliveryForm />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
+        <Route path="Payment-Gateway" element={<PaymentGateway />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
+import "../components/User/User.scss";
 
 const UserProfile = () => {
   return (
     <div>
-      <h1>پروفایل کاربر</h1>
       <Outlet />
     </div>
   );
