@@ -1,9 +1,20 @@
 import { useState } from "react";
 import DeliveryModal from "./DeliveryModal";
+import { Tooltip } from "react-tippy";
+import { formatNumberToCurrency } from "../../services/formatPrice";
+import { convertADToJalali } from "../../services/dateConverter";
 
 const AdminOrdersPage = () => {
+  const newOrders = JSON.parse(localStorage.getItem("finalPurchase2"));
+  const [arivedOrders, setArivedOrder] = useState(newOrders);
   const [DeliveryModalIsOpen, setDeliveryModalIsOpen] = useState(false);
-  // Create search bar for admin
+  const [postedProduct, setPostedProduct] = useState(false);
+  const [awaitingProduct, setAwaitingProduct] = useState(false);
+  const [ID_ForModal, setID_ForModal] = useState(null);
+
+  console.log(arivedOrders);
+
+  // آخر کار از لوکال حذف کن آیتم های جدید رو
   return (
     <div className="AdminOrdersPage">
       <div className="AdminOrdersPage-head-title">
@@ -44,38 +55,38 @@ const AdminOrdersPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-label="نام کاربر">اکبر مردانی</td>
-            <td data-label="مجموع مبلغ">
-              <p>20,000,000</p>
-            </td>
-            <td data-label="زمان سفارش">1399/1/5</td>
-            <td data-label="بررسی">بررسی سفارش</td>
-          </tr>
-          <tr>
-            <td data-label="نام کاربر">اکبر مردانی</td>
-            <td data-label="مجموع مبلغ">
-              <p>20,000,000</p>
-            </td>
-            <td data-label="زمان سفارش">1399/1/5</td>
-            <td data-label="بررسی">بررسی سفارش</td>
-          </tr>
-          <tr>
-            <td data-label="نام کاربر">اکبر مردانی</td>
-            <td data-label="مجموع مبلغ">
-              <p>20,000,000</p>
-            </td>
-            <td data-label="زمان سفارش">1399/1/5</td>
-            <td data-label="بررسی">بررسی سفارش</td>
-          </tr>
-          <tr>
-            <td data-label="نام کاربر">اکبر مردانی</td>
-            <td data-label="مجموع مبلغ">
-              <p>20,000,000</p>
-            </td>
-            <td data-label="زمان سفارش">1399/1/5</td>
-            <td data-label="بررسی">بررسی سفارش</td>
-          </tr>
+          {arivedOrders &&
+            arivedOrders.map((item, index) => (
+              <tr key={index}>
+                <td data-label="نام کاربر">
+                  {item.purchaseDetails.firstName +
+                    " " +
+                    item.purchaseDetails.lastName}
+                </td>
+                <td data-label="مجموع مبلغ">
+                  {formatNumberToCurrency(item.orders[2].sumOfTotalPrices)}
+                </td>
+                <td data-label="زمان سفارش">
+                  {convertADToJalali(item.purchaseDetails.deliveryDate)}
+                </td>
+                <td data-label="بررسی">
+                  <Tooltip
+                    title="بررسی سفارش"
+                    position="top"
+                    trigger="mouseenter"
+                  >
+                    <i
+                      style={{ color: "seagreen", cursor: "pointer" }}
+                      className="bi bi-card-checklist"
+                      onClick={() => {
+                        setID_ForModal(item.purchaseDetails.phoneNumber);
+                        setDeliveryModalIsOpen(true);
+                      }}
+                    ></i>
+                  </Tooltip>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <nav dir="ltr" aria-label="...">
@@ -95,8 +106,13 @@ const AdminOrdersPage = () => {
           </li>
         </ul>
       </nav>
-      <DeliveryModal />
-      {DeliveryModalIsOpen && <DeliveryModal />}
+      {DeliveryModalIsOpen && (
+        <DeliveryModal
+          closeDeliveryModal={setDeliveryModalIsOpen}
+          ID_ForModal={ID_ForModal}
+          orders={arivedOrders}
+        />
+      )}
     </div>
   );
 };
