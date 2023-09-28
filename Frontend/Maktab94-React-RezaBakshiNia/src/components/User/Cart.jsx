@@ -8,11 +8,15 @@ import Modal from "react-modal";
 import DeleteModalContainer from "../Admin/common/DeleteModalContainer";
 import { toast } from "react-toastify";
 import EditModalContainer from "./EditModalContainer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  removeFromCart,
+  selectCartCount,
+} from "../../reducers/cartSlice";
 
 const Cart = () => {
-  const [products, setProducts] = useState(null);
-  const [orders, setOrders] = useState(null);
-  const [sortingType, setSortingType] = useState("price&name");
+  const dispatch = useDispatch();
   const [productDetailsForModal, setProductDetailsForModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -89,15 +93,23 @@ const Cart = () => {
         `http://localhost:8000/api/orders/${id}`
       );
       console.log(res);
+      dispatch(removeFromCart())
+      triggerChanges === "deleted"
+        ? setTriggerChanges("deleted2")
+        : setTriggerChanges("deleted");
     } catch (error) {
       console.log(error);
     }
   };
 
   const finalizeThePurchase = () => {
-    const lastArrayOfData = [...newArray, { sumOfTotalPrices: totalPrice }];
-    localStorage.setItem("finalPurchase", JSON.stringify(lastArrayOfData));
-    console.log(localStorage.getItem("finalPurchase"));
+    if (newArray.length === 0) {
+      toast.warn("هیچ سفارشی وجود ندارد!");
+      return 0;
+    }
+    const lastArrayOfData = { ...newArray, sumOfTotalPrices: totalPrice };
+    localStorage.setItem("ordersInCart", JSON.stringify(lastArrayOfData));
+    console.log(localStorage.getItem("ordersInCart"));
 
     navigate("/DeliveryForm");
   };
@@ -111,12 +123,8 @@ const Cart = () => {
           <tr>
             <th scope="col">تصویر</th>
             <th scope="col">نام کالا</th>
-            <th scope="col" onClick={() => setSortingType("price&name")}>
-              قیمت
-            </th>
-            <th scope="col" onClick={() => setSortingType("quantity&name")}>
-              تعداد
-            </th>
+            <th scope="col">قیمت</th>
+            <th scope="col">تعداد</th>
             <th scope="col">اعمال تغییرات</th>
           </tr>
         </thead>
@@ -149,6 +157,7 @@ const Cart = () => {
                           name: item.name,
                           image: `http://localhost:8000/images/products/images/${item.thumbnail}`,
                           id: item.orderId,
+                          productId: item.productId,
                         });
                         setModalIsOpen(true);
                       }}

@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
 import { validationSchema } from "../../services/formSchema";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const initialValues = {
   firstName: "",
@@ -15,17 +16,12 @@ const DeliveryForm = () => {
   const navigate = useNavigate();
   const productsPurchase = localStorage.getItem("finalPurchase");
 
-  const handleSubmit = (values) => {
-    const previousOrders = localStorage.getItem("finalPurchase2");
-    const finalOrder = [
-      previousOrders ? { ...JSON.parse(previousOrders) } : null,
-      {
-        orders: JSON.parse(productsPurchase),
-        purchaseDetails: values,
-      },
-    ];
-    localStorage.setItem("finalPurchase2", JSON.stringify(finalOrder));
-    console.log(localStorage.getItem("finalPurchase2"));
+  const handleSubmit = async (values) => {
+    const previousOrders = localStorage.getItem("ordersInCart");
+    const order = JSON.parse(previousOrders);
+    console.log({ order, purchaseDetails: values });
+    const objectToPost = { order, purchaseDetails: values };
+    localStorage.setItem("ordersInCart", JSON.stringify(objectToPost));
     navigate("/Payment-Gateway");
   };
 

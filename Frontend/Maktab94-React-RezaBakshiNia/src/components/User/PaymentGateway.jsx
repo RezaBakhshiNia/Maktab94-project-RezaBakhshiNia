@@ -1,7 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
-import { generatePath, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../../reducers/cartSlice";
+import publicApiServices from "../../services/publicApi";
 
 const PaymentGateway = () => {
+  const dispacth = useDispatch();
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
@@ -31,11 +36,23 @@ const PaymentGateway = () => {
     return randomNumber;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const previousOrders = localStorage.getItem("ordersInCart");
+    const objectToPost = JSON.parse(previousOrders);
+    console.log(objectToPost);
 
-    navigate("/Payment-Success-Page");
-
+    try {
+      const response = await axios.post(
+        "https://65029f6da0f2c1f3faea9ffa.mockapi.io/orders/cart",
+        objectToPost
+      );
+      console.log("Object posted successfully:", response.data);
+      dispacth(clearCart());
+      navigate("/Payment-Success-Page");
+    } catch (error) {
+      console.error("Error posting object:", error);
+    }
     console.log("Payment submitted:", cardNumber, expiryDate, cvv);
 
     // Reset form fields
@@ -45,6 +62,7 @@ const PaymentGateway = () => {
   };
 
   const handlePaymentCanceling = () => {
+    localStorage.setItem("ordersInCart", "epy");
     navigate("/Cancel-Payment");
   };
 

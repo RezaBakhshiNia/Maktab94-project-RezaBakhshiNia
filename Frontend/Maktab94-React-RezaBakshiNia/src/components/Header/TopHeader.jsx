@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectCartCount } from "../../reducers/cartSlice";
 
 const TopHeader = () => {
+  const cartCount = useSelector(selectCartCount);
   return (
     <div className="topHeadr">
       <div className="logoAndName">
@@ -24,14 +27,17 @@ const TopHeader = () => {
         <i className="bi bi-search"></i>
       </div>
       <div className="user-pages">
-        <Link className="profile-page" to="http://localhost:5173/userProfile/profile">
+        <Link
+          className="profile-page"
+          to="http://localhost:5173/userProfile/profile"
+        >
           <i className="bi bi-person"></i>
           <span>پروفایل</span>
         </Link>
         <Link className="cart-page" to="http://localhost:5173/userProfile/cart">
           <i className="bi bi-cart3"></i>
           <span>سبد خرید</span>
-          <small>0</small>
+          <small>{cartCount}</small>
         </Link>
         <Link className="comparison-page" to="http://localhost:5173/comparison">
           <i className="bi bi-shuffle"></i>

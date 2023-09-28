@@ -1,14 +1,38 @@
+import { useLayoutEffect } from "react";
+import publicApiServices from "../../services/publicApi";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../reducers/cartSlice";
+
 const PaymentSuccessPage = () => {
-
-  console.log(JSON.parse(localStorage.getItem("finalPurchase2")));
-  
-
+  const dispatch = useDispatch();
   const generateIssueTracking = () => {
     const min = 100000;
     const max = 999999;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomNumber;
   };
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await publicApiServices.get("/api/orders");
+        const orderIds = response.data.data.orders.map((order) => order._id);
+        console.log(response.data.data.orders);
+        const deleteAll = await Promise.all(
+          orderIds.map(async (id) => {
+            await publicApiServices.delete(
+              `http://localhost:8000/api/orders/${id}`
+            );
+          })
+        );
+        console.log(deleteAll);
+        dispatch(clearCart());
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
   return (
     <div className="Payment-Success-Page">
       <div className="Payment-Success-Page-wrapper">

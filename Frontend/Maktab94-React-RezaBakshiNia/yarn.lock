@@ -2540,6 +2540,11 @@ react-router@6.14.2:
   dependencies:
     "@remix-run/router" "1.7.2"
 
+react-spinners@^0.13.8:
+  version "0.13.8"
+  resolved "https://registry.yarnpkg.com/react-spinners/-/react-spinners-0.13.8.tgz#5262571be0f745d86bbd49a1e6b49f9f9cb19acc"
+  integrity sha512-3e+k56lUkPj0vb5NDXPVFAOkPC//XyhKPJjvcGjyMNPWsBKpplfeyialP74G7H7+It7KzhtET+MvGqbKgAqpZA==
+
 react-tether@^2.0.0:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/react-tether/-/react-tether-2.0.8.tgz#770bb2c4b794c96fe163404273e8b5b7ddb3c153"

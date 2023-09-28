@@ -1,11 +1,13 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import publicApiServices from "../../services/publicApi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ImageGallery from "./ImageGallery";
 import ProductDescription from "./ProductDescription";
 import "./productPage.scss";
 import { formatNumberToCurrency } from "../../services/formatPrice";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addToCart, clearCart } from "../../reducers/cartSlice";
 
 const Product = () => {
   const productID = `${window.location.href}`;
@@ -15,6 +17,7 @@ const Product = () => {
   const user = localStorage.getItem("userLogedIn");
   const navigate = useNavigate();
   const deliveryStatus = false;
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +52,7 @@ const Product = () => {
       });
 
       console.log(response.data);
+      dispatch(addToCart(product._id));
       // /userProfile/cart
       navigate("/userProfile/cart");
     } catch (error) {
