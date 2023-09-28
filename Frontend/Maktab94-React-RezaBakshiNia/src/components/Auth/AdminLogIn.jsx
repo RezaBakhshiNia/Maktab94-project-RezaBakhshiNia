@@ -1,6 +1,6 @@
 import "./AdminLogIn.scss";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import * as yup from "yup";
 import adminApiServices from "../../services/interceptor";
 import Cookies from "js-cookie";
@@ -24,8 +24,14 @@ const schema = yup.object().shape({
 
 const AdminLogIn = () => {
   const [inputType, setInputType] = useState("password");
-
   const navigate = useNavigate();
+  useLayoutEffect(() => {
+    if (Cookies.get("accessToken")) {
+      navigate("/admin/products");
+    }
+  });
+
+  console.log(typeof Cookies.get("accessToken"));
   const onSubmit = async (values, actions) => {
     console.log(values);
     console.log(actions);

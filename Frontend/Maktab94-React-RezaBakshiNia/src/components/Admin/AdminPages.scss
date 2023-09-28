@@ -562,3 +562,22 @@
   cursor: pointer;
   z-index: 0;
 }
+
+.check-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-direction: row-reverse;
+}
+
+.span-check {
+  padding: 0.7em;
+  border-radius: 50%;
+  border: 2px solid silver;
+  cursor: pointer;
+  transition: all 350ms;
+  &.checked {
+    border-color: #0d6c47;
+    background-color: #3fff14;
+  }
+}

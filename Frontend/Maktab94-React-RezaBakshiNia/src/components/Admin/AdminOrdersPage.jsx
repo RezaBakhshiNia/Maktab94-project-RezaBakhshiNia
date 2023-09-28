@@ -1,45 +1,72 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeliveryModal from "./DeliveryModal";
 import { Tooltip } from "react-tippy";
 import { formatNumberToCurrency } from "../../services/formatPrice";
 import { convertADToJalali } from "../../services/dateConverter";
+import axios from "axios";
 
 const AdminOrdersPage = () => {
-  const newOrders = JSON.parse(localStorage.getItem("finalPurchase2"));
-  const [arivedOrders, setArivedOrder] = useState(newOrders);
   const [DeliveryModalIsOpen, setDeliveryModalIsOpen] = useState(false);
-  const [postedProduct, setPostedProduct] = useState(false);
-  const [awaitingProduct, setAwaitingProduct] = useState(false);
+  const [isDdelivered, setIsDdelivered] = useState(false);
+  const [productsStatus, setProductsStatus] = useState("waiting");
   const [ID_ForModal, setID_ForModal] = useState(null);
+  const [data, setData] = useState([]);
+  const [triggerChanges, setTriggerChanges] = useState(false);
 
-  console.log(arivedOrders);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        console.log(productsStatus);
 
-  // آخر کار از لوکال حذف کن آیتم های جدید رو
+        if (productsStatus === "waiting") {
+          const response = await axios.get(
+            "https://65029f6da0f2c1f3faea9ffa.mockapi.io/orders/cart"
+          );
+          setData(response.data);
+          console.log(response.data);
+        } else {
+          const response = await axios.get(
+            "https://65029f6da0f2c1f3faea9ffa.mockapi.io/orders/delivered"
+          );
+          setData(response.data);
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, [productsStatus, triggerChanges]);
+
   return (
     <div className="AdminOrdersPage">
       <div className="AdminOrdersPage-head-title">
         <h3>مدیریت سفارش ها</h3>
         <div className="AdminOrdersPage-delivery-status">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
+          <div className="check-wrapper">
+            <span
+              className={`span-check ${
+                productsStatus !== "waiting" ? "checked" : ""
+              }`}
+              onClick={() => setProductsStatus("delivered")}
+              value={productsStatus}
               id="flexRadioDefault1"
             />
-            <label className="form-check-label" htmlFor="flexRadioDefault1">
+            <label className="check-label" htmlFor="flexRadioDefault1">
               ارسال شده
             </label>
           </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
+          <div className="check-wrapper">
+            <span
+              className={`span-check ${
+                productsStatus === "waiting" ? "checked" : ""
+              }`}
+              onClick={() => setProductsStatus("waiting")}
+              value={productsStatus}
               id="flexRadioDefault2"
-              checked
             />
-            <label className="form-check-label" htmlFor="flexRadioDefault2">
+            <label className="check-label" htmlFor="flexRadioDefault2">
               در انتظار ارسال
             </label>
           </div>
@@ -55,8 +82,8 @@ const AdminOrdersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {arivedOrders &&
-            arivedOrders.map((item, index) => (
+          {data &&
+            data.map((item, index) => (
               <tr key={index}>
                 <td data-label="نام کاربر">
                   {item.purchaseDetails.firstName +
@@ -64,7 +91,7 @@ const AdminOrdersPage = () => {
                     item.purchaseDetails.lastName}
                 </td>
                 <td data-label="مجموع مبلغ">
-                  {formatNumberToCurrency(item.orders[2].sumOfTotalPrices)}
+                  {formatNumberToCurrency(item.order.sumOfTotalPrices)}
                 </td>
                 <td data-label="زمان سفارش">
                   {convertADToJalali(item.purchaseDetails.deliveryDate)}
@@ -79,7 +106,10 @@ const AdminOrdersPage = () => {
                       style={{ color: "seagreen", cursor: "pointer" }}
                       className="bi bi-card-checklist"
                       onClick={() => {
-                        setID_ForModal(item.purchaseDetails.phoneNumber);
+                        setID_ForModal(item.id);
+                        productsStatus === "delivered"
+                          ? setIsDdelivered(true)
+                          : null;
                         setDeliveryModalIsOpen(true);
                       }}
                     ></i>
@@ -110,7 +140,10 @@ const AdminOrdersPage = () => {
         <DeliveryModal
           closeDeliveryModal={setDeliveryModalIsOpen}
           ID_ForModal={ID_ForModal}
-          orders={arivedOrders}
+          isDdelivered={isDdelivered}
+          setIsDdelivered={setIsDdelivered}
+          triggerChanges={triggerChanges}
+          setTriggerChanges={setTriggerChanges}
         />
       )}
     </div>

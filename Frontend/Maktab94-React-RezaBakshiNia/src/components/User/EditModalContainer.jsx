@@ -43,6 +43,22 @@ const EditModalContainer = ({
         toast.error("سفارش ویرایش نشد.");
       });
   };
+  const handleIncrease = () => {
+    if (
+      quantity < productDetailsForModal.productQuantity &&
+      productDetailsForModal.productQuantity !== 0
+    ) {
+      setQuantity(quantity + 1);
+    } else if (productDetailsForModal.productQuantity === 0) {
+      setQuantity(0);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   return (
     <div className="deleteModalContainer">
       <h4>تایید ویرایش سفارش</h4>
@@ -56,16 +72,11 @@ const EditModalContainer = ({
       </p>
       <p>موجودی کل {productDetailsForModal.productQuantity} عدد می باشد.</p>
       <small></small>
-      <input
-        type="number"
-        name="quantity"
-        onChange={(e) => handleOrderQuantity(e.target.value)}
-        min={1}
-        max={productDetailsForModal.productQuantity}
-        placeholder="تعداد محصول..."
-        style={{ width: "40%" }}
-        value={quantity}
-      />
+      <div className="product-quantity">
+        <span onClick={handleIncrease}>+</span>
+        <b>{quantity}</b>
+        <span onClick={handleDecrease}>-</span>
+      </div>
       <button
         id="confrim-btn_delete-Modal"
         onClick={() => {

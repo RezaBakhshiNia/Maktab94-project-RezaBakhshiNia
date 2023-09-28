@@ -48,6 +48,7 @@ const AdminProductsPage = () => {
       const resault = response.data;
       console.log(resault);
       toast.success("محصول با موفقیت حذف شد.");
+      setModalIsOpen(false);
       if (products.length === 1) {
         setCurrentPage(currentPage - 1);
       }
